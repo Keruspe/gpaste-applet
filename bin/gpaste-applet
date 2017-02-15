@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+
+import gi
+gi.require_version('GPaste', '1.0')
+gi.require_version('Gtk', '3.0')
+from gi.repository import GPaste
+from gi.repository import Gtk
+
+if __name__ == '__main__':
+    GPaste.Client.new() # Auto spawn the daemon if not yet running
+    icon = Gtk.StatusIcon.new_from_icon_name("edit-paste")
+    icon.connect("activate", lambda data: GPaste.util_spawn_sync("Ui"))
+    icon.set_visible(True)
+    Gtk.main()
